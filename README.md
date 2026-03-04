@@ -1,6 +1,6 @@
 # 🚀 Java Spring Boot — CI/CD Pipeline for Containerized Application
 
-A production-ready Spring Boot REST API wired up with a full CI/CD pipeline using **GitHub Actions**, **Docker**, and **Kubernetes**.
+A production-ready Spring Boot REST API wired up with a full CI/CD pipeline using tools  **GitHub Actions**, **Docker**, and **Kubernetes**.
 
 ---
 
