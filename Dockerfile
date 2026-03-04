@@ -26,8 +26,8 @@ COPY src src
 RUN ./mvnw package -DskipTests -q
 
 # ---- Stage 2: Extract layered JAR ----
-FROM eclipse-temurin:17-jdk-alpine AS extractor
-
+#FROM eclipse-temurin:17-jdk-alpine AS extractor
+FROM eclipse-temurin:17-jdk AS extractor
 WORKDIR /workspace
 COPY --from=builder /workspace/target/*.jar app.jar
 
