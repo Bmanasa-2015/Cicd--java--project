@@ -20,7 +20,7 @@ on:
 
 env:
   # Change these to your registry / image name
-  REGISTRY: docker.io
+  # REGISTRY: docker.io
   IMAGE_NAME: ${{ github.repository }}
   JAVA_VERSION: "17"
 
@@ -94,7 +94,7 @@ jobs:
       - name: Log in to Docker Hub
         uses: docker/login-action@v3
         with:
-          registry: ${{ env.REGISTRY }}
+          # registry: ${{ env.REGISTRY }}
           username: ${{ secrets.DOCKERHUB_USERNAME }}
           password: ${{ secrets.DOCKERHUB_TOKEN }}
 
@@ -102,7 +102,7 @@ jobs:
         id: meta
         uses: docker/metadata-action@v5
         with:
-          images: ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}
+          images: ${{ env.IMAGE_NAME }}
           tags: |
             # Tag with branch name
             type=ref,event=branch
@@ -125,8 +125,8 @@ jobs:
           tags: ${{ steps.meta.outputs.tags }}
           labels: ${{ steps.meta.outputs.labels }}
           # Layer caching via registry
-          cache-from: type=registry,ref=${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}:buildcache
-          cache-to: type=registry,ref=${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}:buildcache,mode=max
+          cache-from: type=registry,ref=${{ env.IMAGE_NAME }}:buildcache
+          cache-to: type=registry,ref=${{ env.IMAGE_NAME }}:buildcache,mode=max
           # Build for multiple platforms
           platforms: linux/amd64,linux/arm64
 
@@ -143,7 +143,7 @@ jobs:
       - name: Run Trivy vulnerability scanner
         uses: aquasecurity/trivy-action@master
         with:
-          image-ref: "${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}:sha-${{ github.sha }}"
+          image-ref: "${{ env.IMAGE_NAME }}:sha-${{ github.sha }}"
           format: "sarif"
           output: "trivy-results.sarif"
           severity: "CRITICAL,HIGH"
@@ -183,7 +183,7 @@ jobs:
 
       - name: Deploy to staging namespace
         run: |
-          IMAGE_TAG="${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}:sha-${{ github.sha }}"
+          IMAGE_TAG="${{ env.IMAGE_NAME }}:sha-${{ github.sha }}"
           kubectl set image deployment/cicd-demo-app \
               app="$IMAGE_TAG" \
               --namespace=staging \
@@ -227,7 +227,7 @@ jobs:
 
       - name: Deploy to production namespace
         run: |
-          IMAGE_TAG="${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}:sha-${{ github.sha }}"
+          IMAGE_TAG="${{ env.IMAGE_NAME }}:sha-${{ github.sha }}"
           kubectl set image deployment/cicd-demo-app \
               app="$IMAGE_TAG" \
               --namespace=production \
