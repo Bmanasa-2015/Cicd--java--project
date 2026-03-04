@@ -20,11 +20,11 @@ WORKDIR /workspace
 COPY pom.xml .
 
 # Download dependencies (cached unless pom.xml changes)
-RUN ./mvnw dependency:go-offline -q
+RUN mvn dependency:go-offline -q
 
 # Copy source and build (skip tests here — tests run earlier in CI)
 COPY src src
-RUN ./mvnw package -DskipTests -q
+RUN mvn package -DskipTests -q
 
 # ---- Stage 2: Extract layered JAR ----
 #FROM eclipse-temurin:17-jdk-alpine AS extractor
