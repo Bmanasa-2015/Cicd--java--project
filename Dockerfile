@@ -8,14 +8,15 @@
 
 # ---- Stage 1: Build ----
 # FROM eclipse-temurin:17-jdk-alpine AS builder
-FROM eclipse-temurin:17-jre AS builder
+#FROM eclipse-temurin:17-jre AS builder
+FROM maven:3.9.6-eclipse-temurin-17 AS builder
 LABEL maintainer="your-team@example.com"
 
 WORKDIR /workspace
 
 # Copy Maven wrapper and pom first so dependency layer is cached
-COPY mvnw .
-COPY .mvn .mvn
+#COPY mvnw .
+#COPY .mvn .mvn
 COPY pom.xml .
 
 # Download dependencies (cached unless pom.xml changes)
