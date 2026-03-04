@@ -8,7 +8,7 @@
 
 # ---- Stage 1: Build ----
 # FROM eclipse-temurin:17-jdk-alpine AS builder
-FROM eclipse-temurin:17-jre
+FROM eclipse-temurin:17-jre AS builder
 LABEL maintainer="your-team@example.com"
 
 WORKDIR /workspace
