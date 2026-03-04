@@ -39,8 +39,8 @@ RUN java -Djarmode=layertools -jar app.jar extract
 # FROM eclipse-temurin:17-jre-alpine AS runtime
 FROM eclipse-temurin:17-jre AS runtime
 # Security: run as non-root
-RUN addgroup -S appgroup && adduser -S appuser -G appgroup
-USER appuser
+# RUN addgroup -S appgroup && adduser -S appuser -G appgroup
+# USER appuser
 
 WORKDIR /app
 
