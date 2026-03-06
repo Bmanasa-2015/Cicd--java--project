@@ -17,7 +17,9 @@ on:
     branches: [main, develop]
   pull_request:
     branches: [main]
-
+permissions:
+  contents: read
+  security-events: write
 env:
   # Change these to your registry / image name
   # REGISTRY: docker.io
