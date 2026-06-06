@@ -233,6 +233,5 @@ jobs:
           kubectl apply -f k8s/deployment.yaml
 
     
-        run: |
-          kubectl rollout status deployment/cicd-demo-app \
+      
               
